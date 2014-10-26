@@ -8,7 +8,7 @@ window["distri/bieber:master"]({
     },
     "main.coffee.md": {
       "path": "main.coffee.md",
-      "content": "Tween some values\n\n    Easing = require \"./easing\"\n    lerp = require \"./lerp\"\n\n    module.exports = (x0, x1, t0, t1, t, easing) ->\n      t = (t - t0)/(t1 - t0)\n\n      p = Easing[easing](t)\n\n      lerp(x0, x1, p)\n",
+      "content": "Tween some values\n\n    Easing = require \"./easing\"\n    lerp = require \"./lerp\"\n\n    module.exports = (x0, x1, t0, t1, t, easing) ->\n      t = (t - t0)/(t1 - t0)\n\n      if typeof easing is \"function\"\n        p = easing(t)\n      else\n        p = Easing[easing](t)\n\n      lerp(x0, x1, p)\n",
       "mode": "100644"
     },
     "test/easing.coffee": {
@@ -40,12 +40,17 @@ window["distri/bieber:master"]({
       "path": "test/helpers.coffee",
       "content": "global.equalEnough = (a, b, threshold=0.001, message) ->\n  delta = b - a\n\n  assert delta <= threshold, message\n  assert delta >= -threshold, message\n",
       "mode": "100644"
+    },
+    "pixie.cson": {
+      "path": "pixie.cson",
+      "content": "version: \"0.1.0\"\n",
+      "mode": "100644"
     }
   },
   "distribution": {
     "main": {
       "path": "main",
-      "content": "(function() {\n  var Easing, lerp;\n\n  Easing = require(\"./easing\");\n\n  lerp = require(\"./lerp\");\n\n  module.exports = function(x0, x1, t0, t1, t, easing) {\n    var p;\n    t = (t - t0) / (t1 - t0);\n    p = Easing[easing](t);\n    return lerp(x0, x1, p);\n  };\n\n}).call(this);\n",
+      "content": "(function() {\n  var Easing, lerp;\n\n  Easing = require(\"./easing\");\n\n  lerp = require(\"./lerp\");\n\n  module.exports = function(x0, x1, t0, t1, t, easing) {\n    var p;\n    t = (t - t0) / (t1 - t0);\n    if (typeof easing === \"function\") {\n      p = easing(t);\n    } else {\n      p = Easing[easing](t);\n    }\n    return lerp(x0, x1, p);\n  };\n\n}).call(this);\n",
       "type": "blob"
     },
     "test/easing": {
@@ -77,11 +82,17 @@ window["distri/bieber:master"]({
       "path": "test/helpers",
       "content": "(function() {\n  global.equalEnough = function(a, b, threshold, message) {\n    var delta;\n    if (threshold == null) {\n      threshold = 0.001;\n    }\n    delta = b - a;\n    assert(delta <= threshold, message);\n    return assert(delta >= -threshold, message);\n  };\n\n}).call(this);\n",
       "type": "blob"
+    },
+    "pixie": {
+      "path": "pixie",
+      "content": "module.exports = {\"version\":\"0.1.0\"};",
+      "type": "blob"
     }
   },
   "progenitor": {
     "url": "http://www.danielx.net/editor/"
   },
+  "version": "0.1.0",
   "entryPoint": "main",
   "repository": {
     "branch": "master",
