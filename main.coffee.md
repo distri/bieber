@@ -12,3 +12,5 @@ Tween some values
         p = Easing[easing](t)
 
       lerp(x0, x1, p)
+
+    module.exports.Easing = Easing
