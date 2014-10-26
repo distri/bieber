@@ -6,6 +6,9 @@ Tween some values
     module.exports = (x0, x1, t0, t1, t, easing) ->
       t = (t - t0)/(t1 - t0)
 
-      p = Easing[easing](t)
+      if typeof easing is "function"
+        p = easing(t)
+      else
+        p = Easing[easing](t)
 
       lerp(x0, x1, p)
